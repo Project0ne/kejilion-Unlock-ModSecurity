@@ -43,3 +43,22 @@ WooCommerce 复杂变体
 ✅ 不关闭 ModSecurity，不移除 CRS
 ✅ 可随时一键恢复默认设置
 ✅ 支持删除前预览，避免误操作
+
+⚙️ 工作原理（安全说明）
+
+脚本通过在 CRS 配置中增加一段 精准规则：
+
+# === WordPress admin tuning ===
+SecRule REQUEST_URI "@beginsWith /wp-admin/" \
+ "id:1000101,\
+  phase:1,\
+  pass,\
+  nolog,\
+  setvar:tx.max_num_args=5000"
+# === Allow large admin POST (menus / elementor) ===
+SecRule REQUEST_URI "@beginsWith /wp-admin/" \
+ "id:1000102,\
+  phase:1,\
+  pass,\
+  nolog,\
+  ctl:ruleRemoveById=200007"
