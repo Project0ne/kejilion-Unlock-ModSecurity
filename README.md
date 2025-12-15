@@ -1,5 +1,9 @@
 # wp-admin-arg-limit.sh
 
+使用:chmod +x /root/wp-admin-arg-limit-run.sh
+
+
+
 🔐 WordPress 后台参数限制智能控制脚本  
 （ModSecurity / OWASP CRS / 科技 Lion LDNMP 专用）
 
