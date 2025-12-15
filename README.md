@@ -20,3 +20,26 @@ Nginx 错误日志中通常能看到类似内容：
 ModSecurity: Access denied with code 400
 [msg "Failed to fully parse request body due to large argument count"]
 [id "200007"]
+
+❗ 根本原因
+
+OWASP CRS 默认规则：
+
+当 POST / GET 参数数量 ≥ 1000 时 → 直接拦截
+
+
+而 WordPress 后台在以下场景中 非常容易超过 1000 个参数：
+
+大型菜单（nav-menus.php）
+
+Elementor 容器 + 小组件
+
+WooCommerce 复杂变体
+
+🎯 本脚本解决了什么？
+
+✅ 仅对 /wp-admin 放宽参数限制（5000）
+✅ 前台仍保持 1000，不牺牲安全性
+✅ 不关闭 ModSecurity，不移除 CRS
+✅ 可随时一键恢复默认设置
+✅ 支持删除前预览，避免误操作
